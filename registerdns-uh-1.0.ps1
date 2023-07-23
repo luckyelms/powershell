@@ -251,3 +251,5 @@ else
     Write-Output "Not connected to any Wifi Network."
     # Do Nothing ..
 }
+
+## Testing if git sycn works
