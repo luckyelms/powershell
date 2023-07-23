@@ -1,0 +1,27 @@
+# Enable remote desktop (RDP) connections for admins on Windows
+# scr: https://exchangepedia.com/2016/10/enable-remote-desktop-rdp-connections-for-admins-on-windows-server-2016.html
+# RDP disconnects the current the user.
+
+$rdppath1 = "HKLM:\SYSTEM\CurrentControlSet\Control\Terminal Server\"	
+$rdppath2 = "HKLM:\SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp\"
+
+1. Enable Remote Desktop connections
+	Set-ItemProperty -Path $rdppath1 -Name “fDenyTSConnections” -Value 0
+	
+	Set-ItemProperty -Path 'HKLM:\System\CurrentControlSet\Control\Terminal Server' -name "fDenyTSConnections" -value 0
+
+2. Enable Network Level Authentication
+	Set-ItemProperty -Path $rdppath2 -Name “UserAuthentication” -Value 1
+	
+	Set-ItemProperty -Path 'HKLM:\SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp' -name "UserAuthentication" -value 1
+
+3. Enable Windows firewall rules to allow incoming RDP
+	Enable-NetFirewallRule -DisplayGroup 'Remote Desktop'
+	
+	
+		
+		
+
+		
+
+		
