@@ -1,7 +1,7 @@
 <#
     - the endpoint user must be part of remote management users group
     - To append data, u must -ScriptBlock else will fail
-    - 
+    - test: will this be applied?
 #>
 
 # Get MAC address and hostname of the local Windows computer

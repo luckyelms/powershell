@@ -1,0 +1,19 @@
+# Get the full name of the user
+$fullName = (Get-WmiObject -Class Win32_ComputerSystem | Select-Object -ExpandProperty UserName).Split('\')[1]
+$fullName = $fullName -replace '\.', ' '
+Write-Host "Full Name: $fullName"
+
+# Get the computer description
+$computerDescription = (Get-WmiObject -Class Win32_ComputerSystem | Select-Object -ExpandProperty Model)
+Write-Host "Computer Description: $computerDescription"
+
+# Get the manufacturer
+$manufacturer = (Get-WmiObject -Class Win32_ComputerSystem | Select-Object -ExpandProperty Manufacturer)
+Write-Host "Manufacturer: $manufacturer"
+
+# Get the serial number
+$serialNumber = (Get-WmiObject -Class Win32_BIOS | Select-Object -ExpandProperty SerialNumber)
+Write-Host "Serial Number: $serialNumber"
+
+# Get the Processor:
+$Processor = Get-WmiObject Win32_Processor | Select name
