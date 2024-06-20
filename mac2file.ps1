@@ -5,6 +5,7 @@
 #>
 
 # Get MAC address and hostname of the local Windows computer
+# testing this comment
 $macAddress = Get-NetAdapter | Where-Object { $_.Status -eq "Up" -and $_.Name -like "Wi-Fi*" } | Select-Object -ExpandProperty MacAddress
 # $macAddress = (Get-WmiObject -Class Win32_NetworkAdapterConfiguration | Where-Object { $_.IPEnabled }).MACAddress
 $hostname = hostname

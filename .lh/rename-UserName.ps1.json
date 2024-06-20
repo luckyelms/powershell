@@ -1,0 +1,30 @@
+{
+    "sourceFile": "rename-UserName.ps1",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 3,
+            "patches": [
+                {
+                    "date": 1718891554679,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1718891573033,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,9 +1,9 @@\n <#\n     Date: 20-06-24 @1638\n     Ver 1:\n       Purpose: Rename current user account to reflect the name of the assigned laptop user.\n-      \n+      Not yet tested\n #>\n # Function to list all users and select one\n function Select-User {\n     $users = Get-WmiObject -Class Win32_UserAccount -Filter \"LocalAccount='True'\" | Select-Object -ExpandProperty Name\n"
+                },
+                {
+                    "date": 1718891604446,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,9 +1,9 @@\n <#\n     Date: 20-06-24 @1638\n     Ver 1:\n       Purpose: Rename current user account to reflect the name of the assigned laptop user.\n-      Not yet tested\n+      Not yet tested..\n #>\n # Function to list all users and select one\n function Select-User {\n     $users = Get-WmiObject -Class Win32_UserAccount -Filter \"LocalAccount='True'\" | Select-Object -ExpandProperty Name\n@@ -14,9 +14,9 @@\n     return $users[$selection - 1]\n }\n \n # Get logged in user\n-$LoggedInuser = (Get-WmiObject -Class Win32_ComputerSystem | Select-Object -ExpandProperty UserName).Split('\\')[1]\n+  $LoggedInuser = (Get-WmiObject -Class Win32_ComputerSystem | Select-Object -ExpandProperty UserName).Split('\\')[1]\n \n # Select a user\n $selectedUser = Select-User\n \n"
+                },
+                {
+                    "date": 1718891611341,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -15,9 +15,8 @@\n }\n \n # Get logged in user\n   $LoggedInuser = (Get-WmiObject -Class Win32_ComputerSystem | Select-Object -ExpandProperty UserName).Split('\\')[1]\n-\n # Select a user\n $selectedUser = Select-User\n \n if ($selectedUser -eq $LoggedInuser)\n"
+                }
+            ],
+            "date": 1718891554679,
+            "name": "Commit-0",
+            "content": "<#\n    Date: 20-06-24 @1638\n    Ver 1:\n      Purpose: Rename current user account to reflect the name of the assigned laptop user.\n      \n#>\n# Function to list all users and select one\nfunction Select-User {\n    $users = Get-WmiObject -Class Win32_UserAccount -Filter \"LocalAccount='True'\" | Select-Object -ExpandProperty Name\n    for ($i = 0; $i -lt $users.Count; $i++) {\n        Write-Host \"$($i + 1). $($users[$i])\"\n    }\n    $selection = Read-Host \"Select a user by number\"\n    return $users[$selection - 1]\n}\n\n# Get logged in user\n$LoggedInuser = (Get-WmiObject -Class Win32_ComputerSystem | Select-Object -ExpandProperty UserName).Split('\\')[1]\n\n# Select a user\n$selectedUser = Select-User\n\nif ($selectedUser -eq $LoggedInuser)\n{\n    Write-Host \"The selected user ($selectedUser) is the same as the logged in user. This user account Meets the Standards required!\"\n} \nelse \n{\n    do \n    {\n        $newUsername = Read-Host \"Enter a new username in the format firstname.secondname (e.g., jane.doe): \"\n        $newUsernameValid = $newUsername -match '^[a-z]+\\.[a-z]+$'\n        if (-not $newUsernameValid) \n        {\n            Write-Host \"Invalid username. Please enter a valid username in the format firstname.secondname (e.g., jane.doe).\"\n        }\n    } while (-not $newUsernameValid)\n\n    # Split the username into firstname and secondname\n      $parts = $newUsername -split '\\.'\n    # Capitalize the first letter of each part\n      $firstName = $parts[0].Substring(0,1).ToUpper() + $parts[0].Substring(1).ToLower()\n      $secondName = $parts[1].Substring(0,1).ToUpper() + $parts[1].Substring(1).ToLower()\n    # Format the full name\n      $fullName = \"$firstName $secondName\"\n      Write-Host \"The full name will be: $fullName\"\n    # Rename the user account\n      Rename-LocalUser -Name $selectedUser -NewName $newUsername\n    # Update the full name\n    Set-LocalUser -Name $newUsername -FullName $fullName\n\n    Write-Host \"User $selectedUser has been renamed to $newUsername and the full name updated to $fullName.\"\n}\n"
+        }
+    ]
+}

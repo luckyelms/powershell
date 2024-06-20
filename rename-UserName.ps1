@@ -1,7 +1,8 @@
 <#
     Date: 20-06-24 @1638
     Ver 1:
-      Purpose: Rename current user account to reflect the name of the assigned laptop user
+      Purpose: Rename current user account to reflect the name of the assigned laptop user.
+      Not yet tested..
 #>
 # Function to list all users and select one
 function Select-User {
@@ -14,8 +15,7 @@ function Select-User {
 }
 
 # Get logged in user
-$LoggedInuser = (Get-WmiObject -Class Win32_ComputerSystem | Select-Object -ExpandProperty UserName).Split('\')[1]
-
+  $LoggedInuser = (Get-WmiObject -Class Win32_ComputerSystem | Select-Object -ExpandProperty UserName).Split('\')[1]
 # Select a user
 $selectedUser = Select-User
 
