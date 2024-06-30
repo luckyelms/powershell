@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 26,
+            "activePatchIndex": 29,
             "patches": [
                 {
                     "date": 1718891792858,
@@ -112,6 +112,18 @@
                 {
                     "date": 1718892173539,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -59,9 +59,9 @@\n Write-Host \"2. IT Admin Account\"\n Write-Host \"3. Install XCALLY\"\n Write-Host \"4. Set Host Name\"\n Write-Host \"5. Instsall cloud Flare\"\n-Write-Host \"6. Standardise A UserAccount\"\n+Write-Host \"6. Standardise A User Account\"\n Write-Host \"x. Exit\"\n \n # Parse the user's input for selected tasks\n $selectedTasks = Read-Host \"Enter the numbers of the tasks you want to perform (e.g., '1 2 3'):\"\n"
+                },
+                {
+                    "date": 1719245004343,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -7,8 +7,9 @@\n     Purpose: Required Laptop Initialization, app intallations etc\n \n     Other Tasks:\n         - set system restore on if not already set.\n+        - Change the timezone\n         - Put the necessary icons on the taskbar\n #>\n # Loop until the user enters a valid drive letter or 'x' to exit\n # $driveLetter must be global\n"
+                },
+                {
+                    "date": 1719245012086,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -8,8 +8,9 @@\n \n     Other Tasks:\n         - set system restore on if not already set.\n         - Change the timezone\n+        - Disable\n         - Put the necessary icons on the taskbar\n #>\n # Loop until the user enters a valid drive letter or 'x' to exit\n # $driveLetter must be global\n"
+                },
+                {
+                    "date": 1719245028606,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -8,9 +8,10 @@\n \n     Other Tasks:\n         - set system restore on if not already set.\n         - Change the timezone\n-        - Disable\n+        - Disable an account\n+        - Delete a user Account\n         - Put the necessary icons on the taskbar\n #>\n # Loop until the user enters a valid drive letter or 'x' to exit\n # $driveLetter must be global\n"
                 }
             ],
             "date": 1718891792858,

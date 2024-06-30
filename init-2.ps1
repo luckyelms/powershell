@@ -8,6 +8,9 @@
 
     Other Tasks:
         - set system restore on if not already set.
+        - Change the timezone
+        - Disable an account
+        - Delete a user Account
         - Put the necessary icons on the taskbar
 #>
 # Loop until the user enters a valid drive letter or 'x' to exit
