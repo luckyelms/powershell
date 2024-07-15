@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 29,
+            "activePatchIndex": 42,
             "patches": [
                 {
                     "date": 1718891792858,
@@ -124,6 +124,58 @@
                 {
                     "date": 1719245028606,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -8,9 +8,10 @@\n \n     Other Tasks:\n         - set system restore on if not already set.\n         - Change the timezone\n-        - Disable\n+        - Disable an account\n+        - Delete a user Account\n         - Put the necessary icons on the taskbar\n #>\n # Loop until the user enters a valid drive letter or 'x' to exit\n # $driveLetter must be global\n"
+                },
+                {
+                    "date": 1720783449784,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -89,9 +89,9 @@\n function CreateITAdminAccount \n {\n     Write-Host \"`r`n`r`n\"  # Move the cursor down two lines\n     Write-Host \"-------------- Creating Admin Account..........\"\n-    $AdminName = \"admin\" # change to itadmin when done testing ...\n+    $AdminName = \"itadmin\" # change to itadmin when done testing ...\n     $AdminGroup = \"Administrators\"\n     $RmuGroup = \"Remote Management Users\"\n     # Read the encrypted string from the file\n     # $driveLetter\n"
+                },
+                {
+                    "date": 1720783657486,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -117,8 +117,9 @@\n         Write-Host \"`r`n`r`n\"  # Move the cursor down two lines\n     } \n     elseif($UserExists) \n     {\n+        \n         # Check if the user is a member of the group using net localgroup\n             $IsMember = net localgroup \"$RmuGroup\" | Select-String -Pattern $AdminName\n         if (-not $IsMember) \n         {\n"
+                },
+                {
+                    "date": 1720783663856,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -117,9 +117,9 @@\n         Write-Host \"`r`n`r`n\"  # Move the cursor down two lines\n     } \n     elseif($UserExists) \n     {\n-        \n+         Write-Output \"\"\n         # Check if the user is a member of the group using net localgroup\n             $IsMember = net localgroup \"$RmuGroup\" | Select-String -Pattern $AdminName\n         if (-not $IsMember) \n         {\n"
+                },
+                {
+                    "date": 1720783672710,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -117,9 +117,9 @@\n         Write-Host \"`r`n`r`n\"  # Move the cursor down two lines\n     } \n     elseif($UserExists) \n     {\n-         Write-Output \"\"\n+         Write-Output \"The admin account Already exists\"\n         # Check if the user is a member of the group using net localgroup\n             $IsMember = net localgroup \"$RmuGroup\" | Select-String -Pattern $AdminName\n         if (-not $IsMember) \n         {\n"
+                },
+                {
+                    "date": 1720783687178,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -124,8 +124,9 @@\n         if (-not $IsMember) \n         {\n             # User is not a member, add the user to the group\n             Add-LocalGroupMember -Group $RmuGroup -Member $AdminName\n+            \n         }\n         else\n         {\n             Write-Output \"$AdminName is already a member of remote dekstop Management users\"\n"
+                },
+                {
+                    "date": 1720783696814,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -124,9 +124,9 @@\n         if (-not $IsMember) \n         {\n             # User is not a member, add the user to the group\n             Add-LocalGroupMember -Group $RmuGroup -Member $AdminName\n-            \n+             Write-Output \"\"\n         }\n         else\n         {\n             Write-Output \"$AdminName is already a member of remote dekstop Management users\"\n"
+                },
+                {
+                    "date": 1720783715618,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -124,9 +124,9 @@\n         if (-not $IsMember) \n         {\n             # User is not a member, add the user to the group\n             Add-LocalGroupMember -Group $RmuGroup -Member $AdminName\n-             Write-Output \"\"\n+             Write-Output \"Added to RmuGroup\"\n         }\n         else\n         {\n             Write-Output \"$AdminName is already a member of remote dekstop Management users\"\n"
+                },
+                {
+                    "date": 1720783721077,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -124,9 +124,9 @@\n         if (-not $IsMember) \n         {\n             # User is not a member, add the user to the group\n             Add-LocalGroupMember -Group $RmuGroup -Member $AdminName\n-             Write-Output \"Added to RmuGroup\"\n+             Write-Output \"Added to $RmuGroup\"\n         }\n         else\n         {\n             Write-Output \"$AdminName is already a member of remote dekstop Management users\"\n"
+                },
+                {
+                    "date": 1720784507737,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -117,9 +117,9 @@\n         Write-Host \"`r`n`r`n\"  # Move the cursor down two lines\n     } \n     elseif($UserExists) \n     {\n-         Write-Output \"The admin account Already exists\"\n+        Write-Output \"The admin account Already exists\"\n         # Check if the user is a member of the group using net localgroup\n             $IsMember = net localgroup \"$RmuGroup\" | Select-String -Pattern $AdminName\n         if (-not $IsMember) \n         {\n"
+                },
+                {
+                    "date": 1720784544604,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -211,10 +211,8 @@\n         Write-Host \"XCALLY installation file not found.\"\n     }\n }\n \n-\n-\n function InstallCloudFlare \n {\n     # 2do: first check if the executable file is present..\n \n"
+                },
+                {
+                    "date": 1720787007563,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -303,9 +303,9 @@\n     else \n     {\n         do \n         {\n-            $newUsername = Read-Host \"Enter a new username in the format firstname.secondname (e.g., jane.doe): \"\n+            $newUsername = Read-Host \"Enter a new username in the format firstname.secondname (e.g., jane.doe) User Name must : \"\n             $newUsernameValid = $newUsername -match '^[a-z]+\\.[a-z]+$'\n             if (-not $newUsernameValid) \n             {\n                 Write-Host \"Invalid username. Please enter a valid username in the format firstname.secondname (e.g., jane.doe).\"\n"
+                },
+                {
+                    "date": 1720787018142,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -303,9 +303,9 @@\n     else \n     {\n         do \n         {\n-            $newUsername = Read-Host \"Enter a new username in the format firstname.secondname (e.g., jane.doe) User Name must : \"\n+            $newUsername = Read-Host \"Enter a new username in the format firstname.secondname same as the(e.g., jane.doe): \"\n             $newUsernameValid = $newUsername -match '^[a-z]+\\.[a-z]+$'\n             if (-not $newUsernameValid) \n             {\n                 Write-Host \"Invalid username. Please enter a valid username in the format firstname.secondname (e.g., jane.doe).\"\n"
+                },
+                {
+                    "date": 1720787026066,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -303,9 +303,9 @@\n     else \n     {\n         do \n         {\n-            $newUsername = Read-Host \"Enter a new username in the format firstname.secondname same as the(e.g., jane.doe): \"\n+            $newUsername = Read-Host \"Enter a new username in the format firstname.secondname same as the users email (e.g., jane.doe): \"\n             $newUsernameValid = $newUsername -match '^[a-z]+\\.[a-z]+$'\n             if (-not $newUsernameValid) \n             {\n                 Write-Host \"Invalid username. Please enter a valid username in the format firstname.secondname (e.g., jane.doe).\"\n"
                 }
             ],
             "date": 1718891792858,

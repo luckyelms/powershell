@@ -90,7 +90,7 @@ function CreateITAdminAccount
 {
     Write-Host "`r`n`r`n"  # Move the cursor down two lines
     Write-Host "-------------- Creating Admin Account.........."
-    $AdminName = "admin" # change to itadmin when done testing ...
+    $AdminName = "itadmin" # change to itadmin when done testing ...
     $AdminGroup = "Administrators"
     $RmuGroup = "Remote Management Users"
     # Read the encrypted string from the file
@@ -118,12 +118,14 @@ function CreateITAdminAccount
     } 
     elseif($UserExists) 
     {
+        Write-Output "The admin account Already exists"
         # Check if the user is a member of the group using net localgroup
             $IsMember = net localgroup "$RmuGroup" | Select-String -Pattern $AdminName
         if (-not $IsMember) 
         {
             # User is not a member, add the user to the group
             Add-LocalGroupMember -Group $RmuGroup -Member $AdminName
+             Write-Output "Added to $RmuGroup"
         }
         else
         {
@@ -209,8 +211,6 @@ function InstallXCALLY
         Write-Host "XCALLY installation file not found."
     }
 }
-
-
 
 function InstallCloudFlare 
 {
@@ -304,7 +304,7 @@ function RenameUserAccount
     {
         do 
         {
-            $newUsername = Read-Host "Enter a new username in the format firstname.secondname (e.g., jane.doe): "
+            $newUsername = Read-Host "Enter a new username in the format firstname.secondname same as the users email (e.g., jane.doe): "
             $newUsernameValid = $newUsername -match '^[a-z]+\.[a-z]+$'
             if (-not $newUsernameValid) 
             {
