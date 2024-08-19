@@ -1,0 +1,50 @@
+{
+    "sourceFile": "renameFileName.ps1",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 8,
+            "patches": [
+                {
+                    "date": 1723065483773,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1723065494787,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,4 +1,6 @@\n+\n+\n # Define the directory path\n $directoryPath = \"E:\\GeneralDownloads\\RHCSA\"\n \n # Define the string to remove\n"
+                },
+                {
+                    "date": 1723065526506,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,6 +1,6 @@\n+<#  #>\n \n-\n # Define the directory path\n $directoryPath = \"E:\\GeneralDownloads\\RHCSA\"\n \n # Define the string to remove\n"
+                },
+                {
+                    "date": 1723065538598,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,5 +1,7 @@\n-<#  #>\n+<# \n+    1. rename all files in a directory\n+#>\n \n # Define the directory path\n $directoryPath = \"E:\\GeneralDownloads\\RHCSA\"\n \n"
+                },
+                {
+                    "date": 1723065545286,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,6 +1,6 @@\n <# \n-    1. rename all files in a directory\n+    1. rename all files in a directory even \n #>\n \n # Define the directory path\n $directoryPath = \"E:\\GeneralDownloads\\RHCSA\"\n"
+                },
+                {
+                    "date": 1723065553162,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,6 +1,6 @@\n <# \n-    1. rename all files in a directory even \n+    1. rename all files in a directory even file names with spe\n #>\n \n # Define the directory path\n $directoryPath = \"E:\\GeneralDownloads\\RHCSA\"\n"
+                },
+                {
+                    "date": 1723065560137,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,6 +1,6 @@\n <# \n-    1. rename all files in a directory even file names with spe\n+    1. rename all files in a directory even file names with special characters\n #>\n \n # Define the directory path\n $directoryPath = \"E:\\GeneralDownloads\\RHCSA\"\n"
+                },
+                {
+                    "date": 1723065565883,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,6 +1,6 @@\n <# \n-    1. rename all files in a directory even file names with special characters\n+    1. rename all files in a directory even file names with special characters e.g []\n #>\n \n # Define the directory path\n $directoryPath = \"E:\\GeneralDownloads\\RHCSA\"\n"
+                },
+                {
+                    "date": 1723065616954,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -10,9 +10,10 @@\n \n # Get all files in the directory\n $files = Get-ChildItem -Path $directoryPath -File\n \n-foreach ($file in $files) {\n+foreach ($file in $files) \n+{\n     # Define the old file name and the new file name\n     $oldFileName = $file.FullName\n     $newFileName = $file.Name -replace [regex]::Escape($removeString), ''\n \n"
+                }
+            ],
+            "date": 1723065483773,
+            "name": "Commit-0",
+            "content": "# Define the directory path\n$directoryPath = \"E:\\GeneralDownloads\\RHCSA\"\n\n# Define the string to remove\n$removeString = \"--- [ FreeCourseWeb.com ] ---\"\n\n# Get all files in the directory\n$files = Get-ChildItem -Path $directoryPath -File\n\nforeach ($file in $files) {\n    # Define the old file name and the new file name\n    $oldFileName = $file.FullName\n    $newFileName = $file.Name -replace [regex]::Escape($removeString), ''\n\n    # Define the new file path\n    $newFilePath = Join-Path -Path $directoryPath -ChildPath $newFileName\n\n    # Print the file processing details\n    Write-Host \"Processing file: $oldFileName\"\n    Write-Host \"New file name: $newFilePath\"\n\n    # Rename the file if the new file path is different from the old file path\n    if ($oldFileName -ne $newFilePath) {\n        try {\n            Rename-Item -LiteralPath $oldFileName -NewName $newFileName -Force\n            Write-Host \"Successfully renamed to: $newFilePath\"\n        } catch {\n            Write-Host \"Error renaming file: $_\"\n        }\n    } else {\n        Write-Host \"No change needed for file: $oldFileName\"\n    }\n}\n"
+        }
+    ]
+}
